@@ -3,7 +3,7 @@ pkgname=wmnetload
 pkgver=1.3
 pkgrel=3
 pkgdesc="Dockapp which displays network activity in different LCD styles"
-arch=(i686 x86_64)
+arch=(i686 x86_64 aarch64)
 url="http://dockapps.windowmaker.org/file.php/id/78"
 license=('GPL')
 depends=('libdockapp')
@@ -22,6 +22,10 @@ prepare() {
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+	rm config.guess
+    rm config.sub
+    wget -O config.guess 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
+    wget -O config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 	./configure --prefix=/usr
 	make LDFLAGS= RPATH=
 }
